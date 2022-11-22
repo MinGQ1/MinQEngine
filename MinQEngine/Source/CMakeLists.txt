@@ -1,0 +1,7 @@
+add_filtered_std("Source/Core")
+add_filtered_std("Source/Events")
+add_filtered_std("Source/Imgui")
+add_filtered_std("Source/Input")
+add_filtered_std("Source/Logger")
+add_filtered_std("Source/Memory")
+add_filtered_std("Source/Platform")

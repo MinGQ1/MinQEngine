@@ -9,18 +9,8 @@ set (CMAKE_MODULE_PATH
 	"${CMAKE_SOURCE_DIR}/CMake"
 )
 
-set(ARROW_SOURCE_DIR ${PROJECT_SOURCE_DIR})
-
-include(PreConfigure)
-
-# Platform preprocessor defination
-IF(WIN32)
-	add_compile_definitions(AE_PLATFORM_WINDOWS)
-ENDIF(WIN32)
-
 # Sub dir
 add_subdirectory(MinQEngine)
 
 #Project dependencies
-add_dependencies(ArrowEngine Imgui)
-add_dependencies(Application ArrowEngine)
+add_dependencies(Application MinQEngine)

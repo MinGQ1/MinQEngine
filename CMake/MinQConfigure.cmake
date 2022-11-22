@@ -29,16 +29,16 @@ if(NOT ${Vulkan_INCLUDE_DIRS} STREQUAL "")
 endif()
 
 if(EXISTS "${VULKAN_LIB_DIRS}")
-	link_directories(ArrowEngine ${VULKAN_LIB_DIRS})
+	link_directories(MinQEngine ${VULKAN_LIB_DIRS})
 	link_directories(Imgui ${VULKAN_LIB_DIRS})
 else()
 	message(FATAL_ERROR "Error: Vulkan Lib Dir Not Found")
 endif()
 
 # ----- Include Dir -----
-#External Dir
-include_directories(AFTER "${ARROW_SOURCE_DIR}/ArrowEngine/External/spdlog/include")
-include_directories(AFTER "${ARROW_SOURCE_DIR}/ArrowEngine/External/glfw/include")
-include_directories(AFTER "${ARROW_SOURCE_DIR}/ArrowEngine/External/imgui")
+#ThirdParty Dir
+include_directories(AFTER "${MQ_SOURCE_DIR}/ThridParty/spdlog/include")
+include_directories(AFTER "${MQ_SOURCE_DIR}/ThridParty/glfw/include")
+# include_directories(AFTER "${MQ_SOURCE_DIR}/ArrowEngine/External/imgui")
 #Arrow Engine Source Dir
-include_directories(AFTER "${ARROW_SOURCE_DIR}/ArrowEngine/Src")
+include_directories(AFTER "${MQ_SOURCE_DIR}/Source")
