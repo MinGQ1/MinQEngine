@@ -7,7 +7,7 @@ else()
 	set(AE_LIB_TYPE SHARED)
 endif()
 
-# ----- Link Dir -------
+# ----- Link Dir -------·
 if(WIN32)
 	link_directories(ArrowEngine ${ARROW_SOURCE_DIR}/ArrowEngine/External/glfw/lib-vc2022)
 	link_directories(ArrowEngine ${ARROW_SOURCE_DIR}/ArrowEngine/External/Imgui)
@@ -39,6 +39,6 @@ endif()
 #ThirdParty Dir
 include_directories(AFTER "${MQ_SOURCE_DIR}/ThridParty/spdlog/include")
 include_directories(AFTER "${MQ_SOURCE_DIR}/ThridParty/glfw/include")
-# include_directories(AFTER "${MQ_SOURCE_DIR}/ArrowEngine/External/imgui")
+include_directories(AFTER "${MQ_SOURCE_DIR}/ThridParty/imgui")
 #Arrow Engine Source Dir
 include_directories(AFTER "${MQ_SOURCE_DIR}/Source")

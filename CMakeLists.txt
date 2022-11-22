@@ -13,4 +13,4 @@ set (CMAKE_MODULE_PATH
 add_subdirectory(MinQEngine)
 
 #Project dependencies
-add_dependencies(Application MinQEngine)
+# add_dependencies(Application MinQEngine)

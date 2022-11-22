@@ -29,8 +29,17 @@ endfunction( add_filtered_std )
 set(HEADER_FILES)
 set(SOURCE_FILES)
 
+add_filtered_std("Source/Core")
+add_filtered_std("Source/Events")
+add_filtered_std("Source/Imgui")
+add_filtered_std("Source/Input")
+add_filtered_std("Source/Logger")
+add_filtered_std("Source/Memory")
+add_filtered_std("Source/Platform")
+
 include(MinQConfigure)
 add_subdirectory(Source)
+add_subdirectory(ThirdParty/Imgui)
 
 add_library(MinQEngine ${AE_LIB_TYPE}
 	${HEADER_FILES}
@@ -42,3 +51,5 @@ include(MinQDefines)
 target_link_libraries(MinQEngine glfw3)
 target_link_libraries(MinQEngine Imgui)
 target_link_libraries(MinQEngine vulkan-1)
+
+add_dependencies(MinQEngine Imgui)
