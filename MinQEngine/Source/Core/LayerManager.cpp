@@ -2,34 +2,32 @@
 #include <MinQDefines.h>
 #include <Logger/Log.h>
 
-namespace ArrowEngine
+LayerManager g_LayerManager;
+std::vector<Layer*> LayerManager::s_UpdatableLayers(kUpdatableLayerCount, NULL);
+
+void LayerManager::RegisterUpdatableLayer(UpdatableLayer layerType, Layer* layer)
 {
-	LayerManager g_LayerManager;
-	std::vector<Layer*> LayerManager::s_UpdatableLayers(kUpdatableLayerCount, NULL);
-
-	void LayerManager::RegisterUpdatableLayer(UpdatableLayer layerType, Layer* layer)
+	if (s_UpdatableLayers[layerType])
 	{
-		if (s_UpdatableLayers[layerType])
-		{
-			AE_CORE_FATAL("UpdatableLayer: Register failed");
-			return;
-		}
-		s_UpdatableLayers[layerType] = layer;
+		AE_CORE_FATAL("UpdatableLayer: Register failed");
+		return;
 	}
+	s_UpdatableLayers[layerType] = layer;
+}
 
-	void LayerManager::UnregisterUpdatableLayer(UpdatableLayer layerType, Layer* layer)
+void LayerManager::UnregisterUpdatableLayer(UpdatableLayer layerType, Layer* layer)
+{
+	if (layer == s_UpdatableLayers[layerType])
 	{
-		if (layer == s_UpdatableLayers[layerType])
-		{
-			s_UpdatableLayers[layerType] = NULL;
-		}
-	}
-	void LayerManager::CallUpdatableLayer(UpdatableLayer layerType)
-	{
-		if (s_UpdatableLayers[layerType])
-		{
-			s_UpdatableLayers[layerType]->Update();
-		}
+		s_UpdatableLayers[layerType] = NULL;
 	}
 }
+void LayerManager::CallUpdatableLayer(UpdatableLayer layerType)
+{
+	if (s_UpdatableLayers[layerType])
+	{
+		s_UpdatableLayers[layerType]->Update();
+	}
+}
+
 

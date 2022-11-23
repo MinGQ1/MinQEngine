@@ -1,7 +1,7 @@
 #pragma once
 
-#include <MinQDefines.h>
-#include <spdlog/spdlog.h>
+#include "MinQDefines.h"
+#include "spdlog/spdlog.h"
 #include "spdlog/sinks/stdout_color_sinks.h"
 
 class AE_API Log

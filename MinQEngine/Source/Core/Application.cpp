@@ -1,6 +1,6 @@
 #include "Application.h"
 #include "Platform/Platform.h"
-#include <ArrowEngine/Logger/Log.h>
+#include "Logger/Log.h"
 
 Application* Application::s_Instance = NULL;
 

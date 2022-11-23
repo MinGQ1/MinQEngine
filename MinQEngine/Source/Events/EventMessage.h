@@ -3,22 +3,20 @@
 #include <cstddef>
 #include "EventCommon.h"
 
-namespace ArrowEngine {
-	class EventMessage
+class EventMessage
+{
+public:
+	EventMessage(int id): m_EventID(id)
 	{
-	public:
-		EventMessage(int id): m_EventID(id)
-		{
-		}
-		EventID GetEventID() const { return m_EventID; };
-		void SetMessage(void* message) 
-		{
-			m_Message = message;
-		}
+	}
+	EventID GetEventID() const { return m_EventID; };
+	void SetMessage(void* message) 
+	{
+		m_Message = message;
+	}
 
-		void* GetMessage() { return m_Message; }
-	protected:
-		const EventID m_EventID;
-		void* m_Message;
-	};
-}
+	void* GetMessage() { return m_Message; }
+protected:
+	const EventID m_EventID;
+	void* m_Message;
+};

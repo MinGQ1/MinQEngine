@@ -1,6 +1,6 @@
 #pragma once
 
-#ifdef  AE_PLATFORM_WINDOWS
+#ifdef  MQ_PLATFORM_WINDOWS
 
 extern ArrowEngine::Application* ArrowEngine::CreateApplication();
 

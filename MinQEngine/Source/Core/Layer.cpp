@@ -1,13 +1,10 @@
 #include "Layer.h"
 
-namespace ArrowEngine
+void Layer::Update()
 {
-	void Layer::Update()
-	{
-	}
+}
 
-	std::string Layer::GetName()
-	{
-		return "";
-	}
+std::string Layer::GetName()
+{
+	return "";
 }
