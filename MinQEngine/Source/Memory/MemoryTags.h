@@ -1,4 +1,4 @@
-#include <AEDefines.h>
+#include <MinQDefines.h>
 
 enum MemoryTag
 {

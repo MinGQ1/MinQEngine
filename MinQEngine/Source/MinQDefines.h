@@ -25,4 +25,4 @@ typedef ::int64_t Int64;
 #define NULL 0
 #define STATIC_ASSERT static_assert
 
-#define MEMORY_TAG(tag) kMem##tag;
+#define MEMORY_TAG(tag) kMem##tag

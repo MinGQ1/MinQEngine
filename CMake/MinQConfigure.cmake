@@ -37,8 +37,8 @@ endif()
 
 # ----- Include Dir -----
 #ThirdParty Dir
-include_directories(AFTER "${MQ_SOURCE_DIR}/ThridParty/spdlog/include")
-include_directories(AFTER "${MQ_SOURCE_DIR}/ThridParty/glfw/include")
-include_directories(AFTER "${MQ_SOURCE_DIR}/ThridParty/imgui")
+include_directories(AFTER "${MQ_SOURCE_DIR}/ThirdParty/spdlog/include")
+include_directories(AFTER "${MQ_SOURCE_DIR}/ThirdParty/glfw/include")
+include_directories(AFTER "${MQ_SOURCE_DIR}/ThirdParty/imgui")
 #Arrow Engine Source Dir
 include_directories(AFTER "${MQ_SOURCE_DIR}/Source")

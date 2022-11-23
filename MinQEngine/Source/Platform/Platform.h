@@ -2,6 +2,6 @@
 #include "MinQDefines.h"
 #include "Core/Window.h"
 
-ArrowEngine::Window* CreatePlatformWindow(const ArrowEngine::WndProps& prop);
+Window* CreatePlatformWindow(const WndProps& prop);
 
 double GetPlatformAbsoluteTime();

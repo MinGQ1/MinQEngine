@@ -3,27 +3,25 @@
 #include <MinQDefines.h>
 #include <Events/EventManager.h>
 
-namespace ArrowEngine {
-	struct WndProps
+struct WndProps
+{
+	WndProps(UInt32 w, UInt32 h, const char* title): width(w), height(h), title(title)
 	{
-		WndProps(UInt32 w, UInt32 h, const char* title): width(w), height(h), title(title)
-		{
-		}
+	}
 
-		UInt32 width;
-		UInt32 height;
-		const char* title;
-	};
+	UInt32 width;
+	UInt32 height;
+	const char* title;
+};
 
-	class Window
-	{
-	public:
-		Window();
-		virtual ~Window();
+class Window
+{
+public:
+	Window();
+	virtual ~Window();
 
-		virtual UInt32 GetWidth() = 0;
-		virtual UInt32 GetHeight() = 0;
-		virtual void Update() = 0;
-		virtual void Destroy() = 0;
-	};
-}
+	virtual UInt32 GetWidth() = 0;
+	virtual UInt32 GetHeight() = 0;
+	virtual void Update() = 0;
+	virtual void Destroy() = 0;
+};

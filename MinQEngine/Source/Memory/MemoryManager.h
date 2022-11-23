@@ -1,6 +1,6 @@
 #pragma once
 
-#include<AEDefines.h>
+#include<MinQDefines.h>
 #include"MemoryTags.h"
 
 class MemoryManager

@@ -1,5 +1,5 @@
 #pragma once
-#include "AEDefines.h"
+#include "MinQDefines.h"
 
 struct Clock
 {

@@ -1,6 +1,6 @@
 #include "Log.h"
 #include "Assert.h"
-#include <AEDefines.h>
+#include <MinQDefines.h>
 #include <string>
 
 std::shared_ptr<spdlog::logger> Log::s_CoreLogger;

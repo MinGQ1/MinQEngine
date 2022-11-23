@@ -1,5 +1,5 @@
 #pragma once
-#include <AEDefines.h>
+#include <MinQDefines.h>
 
 #ifdef ASSERTIONS_ON
 

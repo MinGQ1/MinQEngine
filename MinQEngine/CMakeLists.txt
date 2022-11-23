@@ -36,6 +36,7 @@ add_filtered_std("Source/Input")
 add_filtered_std("Source/Logger")
 add_filtered_std("Source/Memory")
 add_filtered_std("Source/Platform")
+add_filtered_std("Source/Utilities")
 
 include(MinQConfigure)
 add_subdirectory(Source)

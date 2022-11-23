@@ -1,5 +1,5 @@
-#include <ArrowEngine/Logger/Log.h>
-#include <ArrowEngine/Logger/Assert.h>
+#include <Logger/Log.h>
+#include <Logger/Assert.h>
 #include "EventManager.h"
 
 void EventListener::SetCallback(const EventCallbackFn& callback) 

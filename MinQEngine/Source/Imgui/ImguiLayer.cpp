@@ -5,34 +5,31 @@
 #include "ImguiGlfwBackend.h"
 #include "ImguiVulkanBackend.h"
 #include <glfw/glfw3.h>
-#include "ArrowEngine/Core/Application.h"
+#include "Core/Application.h"
 
-namespace ArrowEngine
+bool ImguiLayer::CheckSupported()
 {
-	bool ImguiLayer::CheckSupported()
+	bool supported = true;
+	supported &= glfwVulkanSupported() == GLFW_TRUE;
+	return supported;
+}
+
+bool ImguiLayer::Init()
+{
+	if (!CheckSupported())
 	{
-		bool supported = true;
-		supported &= glfwVulkanSupported() == GLFW_TRUE;
-		return supported;
+		return false;
 	}
 
-	bool ImguiLayer::Init()
-	{
-		if (!CheckSupported())
-		{
-			return false;
-		}
+	//ImGui_ImplGlfw_InitForVulkan();
+}
 
-		//ImGui_ImplGlfw_InitForVulkan();
-	}
+void ImguiLayer::Update()
+{
+	ImGuiIO& io = ImGui::GetIO();
+	Application* app = Application::GetInstance();
+	io.DisplaySize = ImVec2(app->GetWindow()->GetWidth(), app->GetWindow()->GetHeight());
 
-	void ImguiLayer::Update()
-	{
-		ImGuiIO& io = ImGui::GetIO();
-		Application* app = Application::GetInstance();
-		io.DisplaySize = ImVec2(app->GetWindow()->GetWidth(), app->GetWindow()->GetHeight());
+	ImGui_ImplVulkan_NewFrame();
 
-		ImGui_ImplVulkan_NewFrame();
-
-	}
 }
