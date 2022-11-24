@@ -2,11 +2,11 @@
 #include "GLFW/glfw3.h"
 #include <Platform/Platform.h>
 
-WindowsWindow::WindowsWindow(const ArrowEngine::WndProps& props)
+WindowsWindow::WindowsWindow(const WndProps& props)
 {
 	m_AdditionData.width = props.width;
 	m_AdditionData.height = props.height;
-	m_AdditionData.eventMgr = new ArrowEngine::EventManager();
+	m_AdditionData.eventMgr = new EventManager();
 
 	int success = glfwInit();
 	m_Window = glfwCreateWindow(m_AdditionData.width, m_AdditionData.height, props.title, NULL, NULL);
@@ -30,7 +30,7 @@ WindowsWindow::~WindowsWindow()
 }
 
 
-ArrowEngine::Window* CreatePlatformWindow(const ArrowEngine::WndProps& props)
+Window* CreatePlatformWindow(const WndProps& props)
 {
 	return new WindowsWindow(props);
 }

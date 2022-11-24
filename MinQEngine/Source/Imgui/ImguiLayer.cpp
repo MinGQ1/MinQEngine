@@ -20,7 +20,7 @@ bool ImguiLayer::Init()
 	{
 		return false;
 	}
-
+	return true;
 	//ImGui_ImplGlfw_InitForVulkan();
 }
 

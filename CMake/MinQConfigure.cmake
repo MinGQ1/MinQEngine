@@ -9,8 +9,8 @@ endif()
 
 # ----- Link Dir -------·
 if(WIN32)
-	link_directories(ArrowEngine ${ARROW_SOURCE_DIR}/ArrowEngine/External/glfw/lib-vc2022)
-	link_directories(ArrowEngine ${ARROW_SOURCE_DIR}/ArrowEngine/External/Imgui)
+	link_directories(ArrowEngine ${MQ_SOURCE_DIR}/ThirdParty/glfw/lib)
+	link_directories(ArrowEngine ${MQ_SOURCE_DIR}/ThirdParty/External/Imgui)
 endif()
 
 #----- Vulkan -----

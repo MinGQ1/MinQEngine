@@ -35,8 +35,12 @@ add_filtered_std("Source/Imgui")
 add_filtered_std("Source/Input")
 add_filtered_std("Source/Logger")
 add_filtered_std("Source/Memory")
-add_filtered_std("Source/Platform")
 add_filtered_std("Source/Utilities")
+add_filtered_std("Source/Platform")
+
+IF(WIN32)
+add_filtered_std("Source/Platform/Windows")
+ENDIF(WIN32)
 
 include(MinQConfigure)
 add_subdirectory(Source)

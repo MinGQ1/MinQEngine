@@ -2,13 +2,13 @@
 
 #define GLFW_INCLUDE_NONE
 #define GLFW_INCLUDE_VULKAN
-#include "ArrowEngine/Core/Window.h"
+#include "Core/Window.h"
 #include "GLFW/glfw3.h"
 
-class WindowsWindow : public ArrowEngine::Window
+class WindowsWindow : public Window
 {
 public:
-	WindowsWindow(const ArrowEngine::WndProps& props);
+	WindowsWindow(const WndProps& props);
 	virtual ~WindowsWindow();
 
 	UInt32 GetWidth() override { return m_AdditionData.width; }
@@ -20,7 +20,7 @@ private:
 	{
 		UInt32 height;
 		UInt32 width;
-		ArrowEngine::EventManager* eventMgr;
+		EventManager* eventMgr;
 	};
 
 	WndAdditionData m_AdditionData;
