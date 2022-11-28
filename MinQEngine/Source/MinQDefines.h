@@ -1,16 +1,8 @@
 #pragma once
 
-#ifdef  AE_PLATFORM_WINDOWS
-	#ifdef AE_BUILD_DLL
-		#define AE_API __declspec(dllexport)
-	#else
-		#define AE_API __declspec(dllimport)
-	#endif // DEBUG
-#else
-	//#error Platform not support!s
-	#define AE_API
-#endif //  AE_PLATFORM_WINDOWS
+#include "Configuration/BuildConfig.h"
 #include<cstdint>
+
 typedef ::uint8_t UInt8;
 typedef ::uint16_t UInt16;
 typedef ::uint32_t UInt32;

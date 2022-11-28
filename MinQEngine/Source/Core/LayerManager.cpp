@@ -9,7 +9,7 @@ void LayerManager::RegisterUpdatableLayer(UpdatableLayer layerType, Layer* layer
 {
 	if (s_UpdatableLayers[layerType])
 	{
-		AE_CORE_FATAL("UpdatableLayer: Register failed");
+		LogFatal("UpdatableLayer: Register failed");
 		return;
 	}
 	s_UpdatableLayers[layerType] = layer;

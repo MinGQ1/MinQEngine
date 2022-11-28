@@ -7,7 +7,7 @@ Application* Application::s_Instance = NULL;
 Application::Application(): m_ShouldQuit(false), m_Window(NULL)
 {
 	if (s_Instance)
-		AE_CORE_FATAL("Already has application instance");
+		LogFatal("Already has application instance");
 	s_Instance = this;
 	m_ImguiLayer = new ImguiLayer();
 	REGISTER_UPDATABLE_LAYER(kImguiLayer, m_ImguiLayer);

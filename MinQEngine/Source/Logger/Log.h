@@ -4,7 +4,7 @@
 #include "spdlog/spdlog.h"
 #include "spdlog/sinks/stdout_color_sinks.h"
 
-class AE_API Log
+class MQ_API Log
 {
 public:
 	static void Init();
@@ -17,11 +17,11 @@ private:
 };
 
 // Core Log
-#define AE_CORE_TRACE(...) Log::GetCoreLogger()->trace(__VA_ARGS__)
-#define AE_CORE_INFO(...) Log::GetCoreLogger()->info(__VA_ARGS__)
-#define AE_CORE_WARN(...) Log::GetCoreLogger()->warn(__VA_ARGS__)
-#define AE_CORE_ERROR(...) Log::GetCoreLogger()->error(__VA_ARGS__)
-#define AE_CORE_FATAL(...) Log::GetCoreLogger()->critical(__VA_ARGS__)
+#define LogTrace(...) Log::GetCoreLogger()->trace(__VA_ARGS__)
+#define LogInfo(...) Log::GetCoreLogger()->info(__VA_ARGS__)
+#define LogWarn(...) Log::GetCoreLogger()->warn(__VA_ARGS__)
+#define LogError(...) Log::GetCoreLogger()->error(__VA_ARGS__)
+#define LogFatal(...) Log::GetCoreLogger()->critical(__VA_ARGS__)
 
 // App log
 //#define AE_TRACE(...) Log::GetClientLogger()->trace(__VA_ARGS__)

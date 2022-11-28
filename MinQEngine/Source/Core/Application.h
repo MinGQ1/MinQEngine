@@ -5,7 +5,7 @@
 #include "Window.h"
 #include "LayerManager.h"
 
-class AE_API Application
+class MQ_API Application
 {
 public:
 	Application();

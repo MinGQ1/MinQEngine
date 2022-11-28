@@ -2,14 +2,11 @@
 
 #ifdef  MQ_PLATFORM_WINDOWS
 
-extern ArrowEngine::Application* ArrowEngine::CreateApplication();
+extern Application* CreateApplication();
 
 int main(int argc, char** argv)
 {
-	Log::Init();
-	AE_CORE_WARN("Hello Warn!");
-	AE_CORE_ERROR("Hello Error!");
-	auto app = ArrowEngine::CreateApplication();
+	auto app = CreateApplication();
 	app->Run();
 	delete app;
 	return 0;

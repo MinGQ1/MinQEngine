@@ -9,7 +9,7 @@ void EventListener::SetCallback(const EventCallbackFn& callback)
 
 void EventListener::Handle(const EventMessage& message)
 {
-	Assert(m_EventCallback != NULL);
+	LogWarn(m_EventCallback != NULL);
 	m_EventCallback(message);
 }
 
@@ -21,7 +21,7 @@ void  EventManager::Subscribe(EventID eventID, EventListener* listener)
 	}
 	if (!m_ListenerMap[eventID])
 	{
-		AE_CORE_WARN("EventManager: Subscrbe Failed");
+		LogWarn("EventManager: Subscrbe Failed");
 		return;
 	}
 
@@ -30,7 +30,7 @@ void  EventManager::Subscribe(EventID eventID, EventListener* listener)
 	{
 		if ((*it) == listener)
 		{
-			AE_CORE_WARN("EventManager: Already Subscrbed Listener");
+			LogWarn("EventManager: Already Subscrbed Listener");
 			return;
 		}
 	}
@@ -42,7 +42,7 @@ void EventManager::Unsubscribe(EventID eventID, EventListener* listener)
 {
 	if (m_ListenerMap.find(eventID) == m_ListenerMap.end())
 	{
-		AE_CORE_WARN("EventManager: Unsubscribe Failed");
+		LogWarn("EventManager: Unsubscribe Failed");
 		return;
 	}
 	std::list<EventListener*>* list = m_ListenerMap[eventID];
@@ -61,7 +61,7 @@ void EventManager::Notify(const EventMessage& msg)
 	auto it = m_ListenerMap.find(eventID);
 	if (it == m_ListenerMap.end())
 	{
-		AE_CORE_WARN("EventManager: Notify Failed With ID: " + eventID);
+		LogWarn("EventManager: Notify Failed With ID: " + eventID);
 		return;
 	}
 	std::list<EventListener*>* list = m_ListenerMap[eventID];
