@@ -5,7 +5,7 @@
 /.vs
 
 #vs code
-/.vscode
+/.vscode/
 
 #cmake
 /[Oo]ut/
