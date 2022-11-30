@@ -1,6 +1,7 @@
 #include "VulkanRenderSystem.h"
 #include "VulkanDefines.h"
 #include "Logger/Log.h"
+#include "glfw/glfw3.h"
 
 bool VulkanRenderSystem::Initialize()
 {
@@ -45,4 +46,19 @@ bool VulkanRenderSystem::CreateInstance(const char* appName)
 
 	CheckVkResult(vkCreateInstance(&createInfo, nullptr, &m_VulkanContext.vkInstance));
 
+}
+
+std::vector<const char*> GetRequiredExtensions()
+{
+	uint32_t glfwExtensionCount = 0;
+	const char** glfwExtensions;
+	glfwExtensions = glfwGetRequiredInstanceExtensions(&glfwExtensionCount);
+
+	std::vector<const char*> extensions(glfwExtensions, glfwExtensions + glfwExtensionCount);
+
+	if (m_bEnableValidationLayers) {
+		extensions.push_back(VK_EXT_DEBUG_UTILS_EXTENSION_NAME);
+	}
+
+	return extensions;
 }
