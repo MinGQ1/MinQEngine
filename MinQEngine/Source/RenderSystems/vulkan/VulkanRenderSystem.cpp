@@ -3,6 +3,29 @@
 #include "Logger/Log.h"
 #include "glfw/glfw3.h"
 
+static VKAPI_ATTR VkBool32 VKAPI_CALL DebugCallback(
+	VkDebugUtilsMessageSeverityFlagBitsEXT messageSeverity,
+	VkDebugUtilsMessageTypeFlagsEXT messageTypes,
+	const VkDebugUtilsMessengerCallbackDataEXT* callbackData,
+	void* userData) {
+	switch (messageSeverity) {
+	default:
+	case VK_DEBUG_UTILS_MESSAGE_SEVERITY_ERROR_BIT_EXT:
+		LogError(callbackData->pMessage);
+		break;
+	case VK_DEBUG_UTILS_MESSAGE_SEVERITY_WARNING_BIT_EXT:
+		LogWarn(callbackData->pMessage);
+		break;
+	case VK_DEBUG_UTILS_MESSAGE_SEVERITY_INFO_BIT_EXT:
+		LogInfo(callbackData->pMessage);
+		break;
+	case VK_DEBUG_UTILS_MESSAGE_SEVERITY_VERBOSE_BIT_EXT:
+		LogTrace(callbackData->pMessage);
+		break;
+	}
+	return VK_FALSE;
+}
+
 bool VulkanRenderSystem::Initialize()
 {
 	
@@ -35,7 +58,7 @@ bool VulkanRenderSystem::CreateInstance(const char* appName)
 		debugCreateInfo.sType = VK_STRUCTURE_TYPE_DEBUG_UTILS_MESSENGER_CREATE_INFO_EXT;
 		debugCreateInfo.messageSeverity = VK_DEBUG_UTILS_MESSAGE_SEVERITY_VERBOSE_BIT_EXT | VK_DEBUG_UTILS_MESSAGE_SEVERITY_WARNING_BIT_EXT | VK_DEBUG_UTILS_MESSAGE_SEVERITY_ERROR_BIT_EXT;
 		debugCreateInfo.messageType = VK_DEBUG_UTILS_MESSAGE_TYPE_GENERAL_BIT_EXT | VK_DEBUG_UTILS_MESSAGE_TYPE_VALIDATION_BIT_EXT | VK_DEBUG_UTILS_MESSAGE_TYPE_PERFORMANCE_BIT_EXT;
-		debugCreateInfo.pfnUserCallback = VulkanApplication::DebugCallback;
+		debugCreateInfo.pfnUserCallback = DebugCallback;
 		createInfo.pNext = (VkDebugUtilsMessengerCreateInfoEXT*)&debugCreateInfo;
 	}
 	else {
