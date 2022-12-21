@@ -5,4 +5,7 @@ class DynamicArray
 public:
 	DynamicArray();
 	~DynamicArray();
+
+private:
+	void
 };
