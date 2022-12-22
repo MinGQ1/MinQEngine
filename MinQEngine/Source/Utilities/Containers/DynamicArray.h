@@ -7,5 +7,5 @@ public:
 	~DynamicArray();
 
 private:
-	void
+	void push();
 };

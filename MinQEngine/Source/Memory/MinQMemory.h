@@ -1,10 +1,5 @@
 #pragma once
 #include "MemoryManager.h"
 
-inline void RealDelete(void* ptr, MemoryTag tag)
-{
-
-}
-
 #define MINQ_NEW(type, tag)	new(GetMemoryManager().Allocate(sizeof(type), tag)) type
-#define MINQ_DELETE(ptr, tag) { ;GetMemoryManager().Deallocate();}
+#define MINQ_DELETE(ptr, type, tag) { if(ptr) (ptr)->~type(); GetMemoryManager().Deallocate(ptr, tag);}
