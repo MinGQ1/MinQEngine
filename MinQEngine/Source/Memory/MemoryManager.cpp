@@ -9,6 +9,11 @@ void* MemoryManager::Allocate(UInt64 size, MemoryTag tag)
 	return nullptr;
 }
 
+void MemoryManager::Deallocate(void* block, MemoryTag tag)
+{
+	Platform::DeallowcateAligned(block);
+}
+
 MemoryManager g_MemoryManager;
 
 MemoryManager& GetMemoryManager()

@@ -10,7 +10,7 @@ public:
 	~MemoryManager();
 
 	void* Allocate(UInt64 size, MemoryTag tag);
-	void* Deallocate(void* block, UInt64, MemoryTag tag);
+	void Deallocate(void* block, MemoryTag tag);
 };
 
 MemoryManager& GetMemoryManager();
