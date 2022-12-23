@@ -11,7 +11,12 @@ void* MemoryManager::Allocate(UInt64 size, MemoryTag tag)
 
 void MemoryManager::Deallocate(void* block, MemoryTag tag)
 {
-	Platform::DeallowcateAligned(block);
+	Platform::DeallocateAligned(block);
+}
+
+void* MemoryManager::Reallocate(void* block,UInt64 size, MemoryTag tag)
+{
+	return Platform::ReallocateAligned(block, size, tag);
 }
 
 MemoryManager g_MemoryManager;

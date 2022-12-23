@@ -9,8 +9,10 @@ namespace Platform
 	double GetAbsoluteTime();
 	void* Allocate(UInt64 size);
 	void* AllocateAligned(UInt64 size, UInt64 alignment);
-	void* Deallowcate(void* block);
-	void* DeallowcateAligned(void* block);
+	void Deallocate(void* block);
+	void DeallocateAligned(void* block);
+	void* Reallocate(void* block, UInt64 size);
+	void* ReallocateAligned(void* block, UInt64 size, UInt64 alignment);
 }
 
 
