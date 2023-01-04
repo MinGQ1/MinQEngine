@@ -3,6 +3,6 @@
 class RenderSystem
 {
 public:
-	virtual bool Initialize();
-	virtual bool ShutDown();
+	virtual void Initialize();
+	virtual void ShutDown();
 };

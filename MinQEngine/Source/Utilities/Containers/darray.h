@@ -2,6 +2,7 @@
 //Dynamic array
 #include "MinQDefines.h"
 #include "Memory/MinQMemory.h"
+#include "Utilities/OOUtility.h"
 
 template<typename T>
 struct darray
@@ -15,13 +16,14 @@ public:
 
 	}
 
-	void push_back(T& value)
+	void push_back(const T& value)
 	{
 		size_t requestSize = m_size + 1;
 		if (requestSize > m_capacity)
 			reserve(requestSize);
-		
-		
+
+		::new ((T*)(m_array + m_size)) T(value);
+		m_size++;
 	}
 
 	void reserve(size_t targetSize)
@@ -41,6 +43,9 @@ public:
 
 		m_capacity = targetSize;
 	}
+
+	T* data() { return m_array; };
+	size_t size() const { return m_size; };
 
 private:
 	T* m_array;
