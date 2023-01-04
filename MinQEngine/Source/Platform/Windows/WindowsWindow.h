@@ -13,6 +13,7 @@ public:
 
 	UInt32 GetWidth() override { return m_AdditionData.width; }
 	UInt32 GetHeight() override { return m_AdditionData.height; }
+	void* GetRealWindowPtr() override { return m_Window;}
 	void Update() override;
 	void Destroy() override;
 private:

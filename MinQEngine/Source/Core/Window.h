@@ -20,6 +20,7 @@ public:
 	Window();
 	virtual ~Window();
 
+	virtual void* GetRealWindowPtr() = 0;
 	virtual UInt32 GetWidth() = 0;
 	virtual UInt32 GetHeight() = 0;
 	virtual void Update() = 0;

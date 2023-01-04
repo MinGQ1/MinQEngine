@@ -9,4 +9,5 @@ struct VulkanContext
 	VkInstance vkInstance;	
 	VkSurfaceKHR vkSurface;
 	darray<const char*> validationLayers;
+	VkDebugUtilsMessengerEXT debugMessenger;
 };
