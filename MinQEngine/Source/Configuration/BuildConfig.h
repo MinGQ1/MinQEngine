@@ -1,7 +1,5 @@
 #pragma once
 
-const char* buildVersion = "2022v1";
-
 #ifdef  MQ_PLATFORM_WINDOWS
 #ifdef MQ_BUILD_DLL
 #define MQ_API __declspec(dllexport)

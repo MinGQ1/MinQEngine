@@ -13,7 +13,13 @@ public:
 		m_size(0),
 		m_capacity(0)
 	{
+	}
 
+	darray(size_t size): 
+		m_size(size),
+		m_capacity(size)
+	{
+		m_array = (T*)GetMemoryManager().Allocate(size * sizeof(T), kMemDArray);
 	}
 
 	void push_back(const T& value)
@@ -34,11 +40,11 @@ public:
 		if (m_capacity == 0 && m_array == NULL)
 		{
 			// create new data
-			m_array = MemoryManager::Allocate(targetSize * sizeof(T), kMemDArray);
+			m_array = (T*)GetMemoryManager().Allocate(targetSize * sizeof(T), kMemDArray);
 		}
 		else
 		{
-			m_array = MemoryManager::Reallocate(m_array, targetSize, kMemDArray)
+			m_array = (T*)GetMemoryManager().Reallocate(m_array, targetSize, kMemDArray);
 		}
 
 		m_capacity = targetSize;

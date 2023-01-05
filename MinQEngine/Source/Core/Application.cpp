@@ -1,6 +1,8 @@
 #include "Application.h"
 #include "Platform/Platform.h"
 #include "Logger/Log.h"
+#include "Memory/MinQMemory.h"
+#include "RenderSystems/vulkan//VulkanRenderSystem.h"
 
 Application* Application::s_Instance = NULL;
 
@@ -17,13 +19,24 @@ Application::~Application()
 {
 }
 
+static void InitRenderSystem()
+{
+
+}
+
 void Application::Run()
 {		
-	m_Window = CreatePlatformWindow(WndProps(1920, 1080, "Arrow Engine"));
+	// TODO: make window size&name configurable.
+	m_Window = Platform::CreatePlatformWindow(WndProps(1920, 1080, "Arrow Engine"));
+
+	// TODO: make this configurable.
+	m_RenderSystem = MINQ_NEW(VulkanRenderSystem, kMemRenderSystem);
+	m_RenderSystem->SetGlfwWindow((GLFWwindow*)m_Window->GetRealWindowPtr());
+	m_RenderSystem->Initialize();
 	while (!m_ShouldQuit)
 	{
 		m_Window->Update();
-		CALL_UPDATABLE_LAYER(kImguiLayer);
+		//CALL_UPDATABLE_LAYER(kImguiLayer);
 	}
 
 	m_Window->Destroy();

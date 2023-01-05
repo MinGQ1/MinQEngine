@@ -30,7 +30,7 @@ WindowsWindow::~WindowsWindow()
 }
 
 
-Window* CreatePlatformWindow(const WndProps& props)
+Window* Platform::CreatePlatformWindow(const WndProps& props)
 {
 	return new WindowsWindow(props);
 }

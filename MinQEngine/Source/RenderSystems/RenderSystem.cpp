@@ -1,11 +1,13 @@
 #include "RenderSystem.h"
 
-bool RenderSystem::Initialize()
+void RenderSystem::Initialize()
 {
-	return false;
 }
 
-bool RenderSystem::ShutDown()
+void RenderSystem::SetGlfwWindow(GLFWwindow* window)
 {
-	return false;
+}
+
+void RenderSystem::ShutDown()
+{
 }

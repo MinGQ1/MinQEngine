@@ -4,7 +4,7 @@
 
 namespace Platform
 {
-	Window* CreateWindow(const WndProps& prop);
+	Window* CreatePlatformWindow(const WndProps& prop);
 
 	double GetAbsoluteTime();
 	void* Allocate(UInt64 size);

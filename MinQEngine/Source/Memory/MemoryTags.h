@@ -6,5 +6,6 @@ enum MemoryTag
 	MEMORY_TAG(Texture),
 	MEMORY_TAG(Shader),
 	MEMORY_TAG(DArray),
+	MEMORY_TAG(RenderSystem),
 	kMemoryTagCount
 };

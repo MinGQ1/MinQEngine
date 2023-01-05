@@ -5,6 +5,8 @@
 #include "Window.h"
 #include "LayerManager.h"
 
+class RenderSystem;
+
 class MQ_API Application
 {
 public:
@@ -16,6 +18,7 @@ public:
 	void Run();
 private:
 	Window* m_Window;
+	RenderSystem* m_RenderSystem;
 	bool m_ShouldQuit;
 
 	ImguiLayer* m_ImguiLayer;

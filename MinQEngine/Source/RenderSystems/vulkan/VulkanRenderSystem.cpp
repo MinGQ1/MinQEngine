@@ -36,9 +36,27 @@ static VKAPI_ATTR VkBool32 VKAPI_CALL DebugCallback(
 	return VK_FALSE;
 }
 
+static std::vector<const char*> GetRequiredExtensions()
+{
+	uint32_t glfwExtensionCount = 0;
+	const char** glfwExtensions;
+	glfwExtensions = glfwGetRequiredInstanceExtensions(&glfwExtensionCount);
+
+	std::vector<const char*> extensions(glfwExtensions, glfwExtensions + glfwExtensionCount);
+
+#if MINQ_VK_VALIDATION_LAYERS
+	extensions.push_back(VK_EXT_DEBUG_UTILS_EXTENSION_NAME);
+#endif
+
+	return extensions;
+}
+
 void VulkanRenderSystem::Initialize()
 {
-	
+	CreateInstance("MinQVK");
+	CreateSurface();
+	SetupDebugMessenger();
+	PickPhysicalDevice();
 }
 
 void VulkanRenderSystem::CreateInstance(const char* appName)
@@ -47,7 +65,7 @@ void VulkanRenderSystem::CreateInstance(const char* appName)
 	appInfo.sType = VK_STRUCTURE_TYPE_APPLICATION_INFO;
 	appInfo.pApplicationName = appName;
 	appInfo.applicationVersion = VK_MAKE_VERSION(1, 0, 0);
-	appInfo.pEngineName = "No Engine";
+	appInfo.pEngineName = "MinQEngine";
 	appInfo.engineVersion = VK_MAKE_VERSION(1, 0, 0);
 	appInfo.apiVersion = VK_API_VERSION_1_3;
 
@@ -100,17 +118,16 @@ void VulkanRenderSystem::SetupDebugMessenger()
 #endif
 }
 
-std::vector<const char*> GetRequiredExtensions()
+void VulkanRenderSystem::PickPhysicalDevice()
 {
-	uint32_t glfwExtensionCount = 0;
-	const char** glfwExtensions;
-	glfwExtensions = glfwGetRequiredInstanceExtensions(&glfwExtensionCount);
+	UInt32 deviceCount = 0;
+	vkEnumeratePhysicalDevices(m_VulkanContext.vkInstance, &deviceCount, nullptr);
+	if (deviceCount == 0) {
+		throw std::runtime_error("failed to find GPUs with Vulkan support!");
+	}
 
-	std::vector<const char*> extensions(glfwExtensions, glfwExtensions + glfwExtensionCount);
+	darray<VkPhysicalDevice> devices(deviceCount);
+	vkEnumeratePhysicalDevices(m_VulkanContext.vkInstance, &deviceCount, devices.data());
 
-#if MINQ_VK_VALIDATION_LAYERS
-		extensions.push_back(VK_EXT_DEBUG_UTILS_EXTENSION_NAME);
-#endif
 
-	return extensions;
 }
