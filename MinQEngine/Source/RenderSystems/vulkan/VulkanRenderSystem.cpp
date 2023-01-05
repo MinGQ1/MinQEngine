@@ -129,5 +129,10 @@ void VulkanRenderSystem::PickPhysicalDevice()
 	darray<VkPhysicalDevice> devices(deviceCount);
 	vkEnumeratePhysicalDevices(m_VulkanContext.vkInstance, &deviceCount, devices.data());
 
+	m_VulkanContext.physicalDevice = devices[0];
+}
+
+void VulkanRenderSystem::CreateLogicalDevice()
+{
 
 }

@@ -10,4 +10,5 @@ struct VulkanContext
 	VkSurfaceKHR vkSurface;
 	darray<const char*> validationLayers;
 	VkDebugUtilsMessengerEXT debugMessenger;
+	VkPhysicalDevice physicalDevice
 };

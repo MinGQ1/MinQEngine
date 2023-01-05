@@ -18,6 +18,8 @@ private:
 	void CreateSurface();
 	void SetupDebugMessenger();
 	void PickPhysicalDevice();
+	void CreateLogicalDevice();
+
 	VulkanContext m_VulkanContext;
 	GLFWwindow* m_GlfwWindow;
 };

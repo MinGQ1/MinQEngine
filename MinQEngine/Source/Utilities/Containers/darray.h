@@ -50,6 +50,11 @@ public:
 		m_capacity = targetSize;
 	}
 
+	T& operator[](int index)
+	{
+		return *(m_array + index)
+	}
+
 	T* data() { return m_array; };
 	size_t size() const { return m_size; };
 
