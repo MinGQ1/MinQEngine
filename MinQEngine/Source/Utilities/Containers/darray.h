@@ -8,6 +8,8 @@ template<typename T>
 struct darray
 {
 public:
+	typedef T* iterator;
+
 	darray():
 		m_array(NULL),
 		m_size(0),
@@ -50,9 +52,12 @@ public:
 		m_capacity = targetSize;
 	}
 
-	T& operator[](int index)
+	T* begin() { return m_array; }
+	T* end() { return m_array + m_size; }
+
+	T& operator[](size_t index)
 	{
-		return *(m_array + index)
+		return m_array[index];
 	}
 
 	T* data() { return m_array; };

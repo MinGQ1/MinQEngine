@@ -3,6 +3,18 @@
 #include <vulkan/vulkan.h>
 #include <vulkan/vulkan_core.h>
 #include "Utilities/Containers/darray.h"
+#include "MinQDefines.h"
+
+struct VulkanDeviceDesc
+{
+	Int32 graphicsQueueIndex;
+	Int32 presentQueueIndex;
+	Int32 transferQueueIndex;
+
+	VkQueue graphicsQueue;
+	VkQueue presentQueue;
+	VkQueue transferQueue;
+};
 
 struct VulkanContext
 {
@@ -10,5 +22,6 @@ struct VulkanContext
 	VkSurfaceKHR vkSurface;
 	darray<const char*> validationLayers;
 	VkDebugUtilsMessengerEXT debugMessenger;
-	VkPhysicalDevice physicalDevice
+	VkPhysicalDevice physicalDevice;
+	VkDevice vkDevice;
 };
