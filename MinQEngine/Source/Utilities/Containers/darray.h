@@ -52,8 +52,8 @@ public:
 		m_capacity = targetSize;
 	}
 
-	T* begin() { return m_array; }
-	T* end() { return m_array + m_size; }
+	iterator begin() { return m_array; }
+	iterator end() { return m_array + m_size; }
 
 	T& operator[](size_t index)
 	{

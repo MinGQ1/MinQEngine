@@ -27,11 +27,9 @@ static void InitRenderSystem()
 void Application::Run()
 {		
 	// TODO: make window size&name configurable.
-	m_Window = Platform::CreatePlatformWindow(WndProps(1920, 1080, "Arrow Engine"));
+	m_Window = Platform::CreatePlatformWindow(WndProps(1920, 1080, "MinQ Engine"));
 
-	// TODO: make this configurable.
-	m_RenderSystem = MINQ_NEW(VulkanRenderSystem, kMemRenderSystem);
-	m_RenderSystem->SetGlfwWindow((GLFWwindow*)m_Window->GetRealWindowPtr());
+	m_RenderSystem = MINQ_NEW(VulkanRenderSystem, kMemRenderSystem)((GLFWwindow*)m_Window->GetRealWindowPtr());
 	m_RenderSystem->Initialize();
 	while (!m_ShouldQuit)
 	{

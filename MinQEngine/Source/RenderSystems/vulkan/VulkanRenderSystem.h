@@ -8,8 +8,11 @@ struct GLFWwindow;
 class VulkanRenderSystem : public RenderSystem
 {
 public:
+	explicit VulkanRenderSystem(GLFWwindow* window)
+	{
+		m_GlfwWindow = window;
+	}
 	// TODO: remove this
-	void SetGlfwWindow(GLFWwindow* window) { m_GlfwWindow = window; }
 
 	void Initialize() override;
 private:

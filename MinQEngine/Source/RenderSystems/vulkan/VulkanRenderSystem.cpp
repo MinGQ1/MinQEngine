@@ -118,20 +118,6 @@ void VulkanRenderSystem::SetupDebugMessenger()
 #endif
 }
 
-void VulkanRenderSystem::PickPhysicalDevice()
-{
-	UInt32 deviceCount = 0;
-	vkEnumeratePhysicalDevices(m_VulkanContext.vkInstance, &deviceCount, nullptr);
-	if (deviceCount == 0) {
-		throw std::runtime_error("failed to find GPUs with Vulkan support!");
-	}
-
-	darray<VkPhysicalDevice> devices(deviceCount);
-	vkEnumeratePhysicalDevices(m_VulkanContext.vkInstance, &deviceCount, devices.data());
-
-	m_VulkanContext.physicalDevice = devices[0];
-}
-
 void VulkanRenderSystem::CreateLogicalDevice()
 {
 
