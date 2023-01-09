@@ -15,7 +15,7 @@ namespace mqvk
 		VulkanQueueFamilyIndex	familyIndices;
 		for (darray<VkQueueFamilyProperties>::iterator it = queueFamilies.begin(); it != queueFamilies.end(); it++)
 		{
-
+			
 		}
 	}
 
