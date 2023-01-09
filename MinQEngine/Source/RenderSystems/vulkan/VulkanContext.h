@@ -5,24 +5,18 @@
 #include "Utilities/Containers/darray.h"
 #include "MinQDefines.h"
 
-class VulkanDevice;
-
-struct VulkanDeviceDesc
+namespace mqvk
 {
-	Int32 graphicsQueueIndex;
-	Int32 presentQueueIndex;
-	Int32 transferQueueIndex;
+	class VulkanDevice;
 
-	VkQueue graphicsQueue;
-	VkQueue presentQueue;
-	VkQueue transferQueue;
-};
-
-struct VulkanContext
-{
-	VkInstance vkInstance;	
-	VkSurfaceKHR vkSurface;
-	darray<const char*> validationLayers;
-	VkDebugUtilsMessengerEXT debugMessenger;
-	VulkanDevice* vulkanDevice;
-};
+	struct VulkanContext
+	{
+		VkInstance vkInstance;
+		VkSurfaceKHR vkSurface;
+		darray<const char*> validationLayers;
+		VkDebugUtilsMessengerEXT debugMessenger;
+		VulkanDevice* vulkanDevice;
+	};
+	
+	extern VulkanContext g_VulkanContext;
+}

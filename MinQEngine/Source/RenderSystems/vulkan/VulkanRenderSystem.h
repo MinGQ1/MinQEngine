@@ -20,9 +20,7 @@ private:
 	void CreateInstance(const char* appName);
 	void CreateSurface();
 	void SetupDebugMessenger();
-	void PickPhysicalDevice();
-	void CreateLogicalDevice();
+	void CreateVulkanDevice();
 
-	VulkanContext m_VulkanContext;
 	GLFWwindow* m_GlfwWindow;
 };

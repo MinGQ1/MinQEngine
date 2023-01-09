@@ -2,6 +2,7 @@
 #include "VulkanDefines.h"
 #include "Logger/Log.h"
 #include "glfw/glfw3.h"
+#include "VulkanDevice.h"
 
 static VkResult CreateDebugUtilsMessengerEXT(VkInstance instance, const VkDebugUtilsMessengerCreateInfoEXT* pCreateInfo, const VkAllocationCallbacks* pAllocator, VkDebugUtilsMessengerEXT* pDebugMessenger) {
 	auto func = (PFN_vkCreateDebugUtilsMessengerEXT)vkGetInstanceProcAddr(instance, "vkCreateDebugUtilsMessengerEXT");
@@ -56,7 +57,7 @@ void VulkanRenderSystem::Initialize()
 	CreateInstance("MinQVK");
 	CreateSurface();
 	SetupDebugMessenger();
-	PickPhysicalDevice();
+	CreateVulkanDevice();
 }
 
 void VulkanRenderSystem::CreateInstance(const char* appName)
@@ -79,10 +80,10 @@ void VulkanRenderSystem::CreateInstance(const char* appName)
 
 	VkDebugUtilsMessengerCreateInfoEXT debugCreateInfo{};
 
-	m_VulkanContext.validationLayers.push_back("VK_LAYER_KHRONOS_validation");
+	mqvk::g_VulkanContext.validationLayers.push_back("VK_LAYER_KHRONOS_validation");
 #if MINQ_VK_VALIDATION_LAYERS
-		createInfo.enabledLayerCount = static_cast<uint32_t>(m_VulkanContext.validationLayers.size());
-		createInfo.ppEnabledLayerNames = m_VulkanContext.validationLayers.data();
+		createInfo.enabledLayerCount = static_cast<uint32_t>(mqvk::g_VulkanContext.validationLayers.size());
+		createInfo.ppEnabledLayerNames = mqvk::g_VulkanContext.validationLayers.data();
 
 		debugCreateInfo = {};
 		debugCreateInfo.sType = VK_STRUCTURE_TYPE_DEBUG_UTILS_MESSENGER_CREATE_INFO_EXT;
@@ -96,12 +97,12 @@ void VulkanRenderSystem::CreateInstance(const char* appName)
 		createInfo.pNext = nullptr;
 #endif
 
-	CheckVkResult(vkCreateInstance(&createInfo, nullptr, &m_VulkanContext.vkInstance));
+	CheckVkResult(vkCreateInstance(&createInfo, nullptr, &mqvk::g_VulkanContext.vkInstance));
 }
 
 void VulkanRenderSystem::CreateSurface()
 {
-	CheckVkResult(glfwCreateWindowSurface(m_VulkanContext.vkInstance, m_GlfwWindow, nullptr, &m_VulkanContext.vkSurface));
+	CheckVkResult(glfwCreateWindowSurface(mqvk::g_VulkanContext.vkInstance, m_GlfwWindow, nullptr, &mqvk::g_VulkanContext.vkSurface));
 }
 
 void VulkanRenderSystem::SetupDebugMessenger()
@@ -114,11 +115,11 @@ void VulkanRenderSystem::SetupDebugMessenger()
 	createInfo.messageType = VK_DEBUG_UTILS_MESSAGE_TYPE_GENERAL_BIT_EXT | VK_DEBUG_UTILS_MESSAGE_TYPE_VALIDATION_BIT_EXT | VK_DEBUG_UTILS_MESSAGE_TYPE_PERFORMANCE_BIT_EXT;
 	createInfo.pfnUserCallback = DebugCallback;
 
-	CheckVkResult(CreateDebugUtilsMessengerEXT(m_VulkanContext.vkInstance, &createInfo, nullptr, &m_VulkanContext.debugMessenger));
+	CheckVkResult(CreateDebugUtilsMessengerEXT(mqvk::g_VulkanContext.vkInstance, &createInfo, nullptr, &mqvk::g_VulkanContext.debugMessenger));
 #endif
 }
 
-void VulkanRenderSystem::CreateLogicalDevice()
+void VulkanRenderSystem::CreateVulkanDevice()
 {
-
+	mqvk::g_VulkanContext.vulkanDevice = MINQ_NEW(mqvk::VulkanDevice, kMemRenderSystem);
 }
