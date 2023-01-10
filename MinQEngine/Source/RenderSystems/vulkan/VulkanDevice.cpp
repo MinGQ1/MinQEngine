@@ -7,7 +7,7 @@ namespace mqvk
 	bool VulkanDevice::CheckPhysicalDeviceSutiable(VkPhysicalDevice device, bool updateQueueIndex)
 	{
 #define WRITE_QUEUEFAMILYINDEX_AND_CONFIG(id, idName, queueRequireName) do {\
-		familyIndices.idName = id; \
+		familyIndices.idName = familyIndices.idName >= 0 ? familyIndices.idName : id; \
 		configuration.queueRequireName = true; \
 		} while (0)
 
@@ -45,6 +45,10 @@ namespace mqvk
 			if (m_Configuration.QueueRequireMatch(configuration))
 			{
 				result = true;
+				if (updateQueueIndex)
+				{
+					m_QueueFamilyIndex = familyIndices;
+				}
 				break;
 			}
 			id++;
@@ -77,5 +81,7 @@ namespace mqvk
 			if (CheckPhysicalDeviceSutiable(*it, true))
 				m_PhysicalDevice = *it;
 		}
+
+
 	}
 }

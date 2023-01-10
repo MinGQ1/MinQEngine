@@ -122,4 +122,5 @@ void VulkanRenderSystem::SetupDebugMessenger()
 void VulkanRenderSystem::CreateVulkanDevice()
 {
 	mqvk::g_VulkanContext.vulkanDevice = MINQ_NEW(mqvk::VulkanDevice, kMemRenderSystem);
+	mqvk::g_VulkanContext.vulkanDevice->InitVulkanDevice();
 }
