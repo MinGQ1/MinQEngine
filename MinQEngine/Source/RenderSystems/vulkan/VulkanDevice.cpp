@@ -1,6 +1,8 @@
+#include "Logger/Assert.h"
 #include "VulkanDevice.h"
 #include "VulkanDefines.h"
 #include "Utilities/Containers/darray.h"
+#include <set>
 
 namespace mqvk
 {
@@ -58,15 +60,18 @@ namespace mqvk
 
 	VulkanDevice::VulkanDevice()
 	{
+		m_VkQueue = darray<VkQueue>(kVkQueueTypeCount);
 	}
 
 	VulkanDevice::VulkanDevice(VulkanDeviceConfiguration config): 
 		m_Configuration(config)
 	{
+		m_VkQueue = darray<VkQueue>(kVkQueueTypeCount);
 	}
 
 	void VulkanDevice::InitVulkanDevice()
 	{
+		// phick physical device
 		UInt32 phicaldeviceCount = 0;
 		vkEnumeratePhysicalDevices(g_VulkanContext.vkInstance, &phicaldeviceCount, nullptr);
 		if (phicaldeviceCount == 0) {
@@ -82,6 +87,52 @@ namespace mqvk
 				m_PhysicalDevice = *it;
 		}
 
+		//create logical device
 
+		darray<VkDeviceQueueCreateInfo> queueCreateInfos;
+		std::set<UInt32> queueFamiliesSet;
+		if (m_Configuration.graphicQueueRequire)	queueFamiliesSet.insert(m_QueueFamilyIndex.graphicsFamilyIndex);
+		if (m_Configuration.computeQueueRequire)	queueFamiliesSet.insert(m_QueueFamilyIndex.computeFamilyIndex);
+		if (m_Configuration.transferQueueRequire)	queueFamiliesSet.insert(m_QueueFamilyIndex.transferFamilyIndex);
+		if (m_Configuration.presentQueueRequire)	queueFamiliesSet.insert(m_QueueFamilyIndex.presentFamilyIndex);
+
+		float queuePriority = 1.0f;
+		for (uint32_t queueFamily : queueFamiliesSet) {
+			VkDeviceQueueCreateInfo queueCreateInfo{};
+			queueCreateInfo.sType = VK_STRUCTURE_TYPE_DEVICE_QUEUE_CREATE_INFO;
+			queueCreateInfo.queueFamilyIndex = queueFamily;
+			queueCreateInfo.queueCount = 1;
+			queueCreateInfo.pQueuePriorities = &queuePriority;
+			queueCreateInfos.push_back(queueCreateInfo);
+		}
+
+		VkPhysicalDeviceFeatures deviceFeatures{};
+
+		VkDeviceCreateInfo createInfo{};
+		createInfo.sType = VK_STRUCTURE_TYPE_DEVICE_CREATE_INFO;
+
+		createInfo.pQueueCreateInfos = queueCreateInfos.data();
+		createInfo.queueCreateInfoCount = queueCreateInfos.size();
+
+		createInfo.pEnabledFeatures = &deviceFeatures;
+
+		//createInfo.enabledExtensionCount = 0;
+		createInfo.enabledExtensionCount = static_cast<uint32_t>(m_Extension.size());
+		createInfo.ppEnabledExtensionNames = m_Extension.data();
+
+#if MINQ_VK_VALIDATION_LAYERS
+		createInfo.enabledLayerCount = static_cast<uint32_t>(g_VulkanContext.validationLayers.size());
+		createInfo.ppEnabledLayerNames = g_VulkanContext.validationLayers.data();
+#else
+		createInfo.enabledLayerCount = 0;
+#endif
+
+		CheckVkResult(vkCreateDevice(m_PhysicalDevice, &createInfo, nullptr, &m_LogicalDevice));
+
+		AssertMsg(m_VkQueue.size() == kVkQueueTypeCount, "VulkanDevice: Wrong size of vk queue");
+		vkGetDeviceQueue(m_LogicalDevice, m_QueueFamilyIndex.graphicsFamilyIndex, 0, &m_VkQueue[kVkQueueGraphic]);
+		vkGetDeviceQueue(m_LogicalDevice, m_QueueFamilyIndex.presentFamilyIndex, 0, &m_VkQueue[kVkQueuePresent]);
+		vkGetDeviceQueue(m_LogicalDevice, m_QueueFamilyIndex.transferFamilyIndex, 0, &m_VkQueue[kVkQueueTransfer]);
+		vkGetDeviceQueue(m_LogicalDevice, m_QueueFamilyIndex.computeFamilyIndex, 0, &m_VkQueue[kVkQueueCompute]);
 	}
 }

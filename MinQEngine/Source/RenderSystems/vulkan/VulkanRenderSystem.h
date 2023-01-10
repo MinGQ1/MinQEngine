@@ -21,6 +21,7 @@ private:
 	void CreateSurface();
 	void SetupDebugMessenger();
 	void CreateVulkanDevice();
+	void CreateSwapChain();
 
 	GLFWwindow* m_GlfwWindow;
 };

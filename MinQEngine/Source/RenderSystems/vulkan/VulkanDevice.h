@@ -2,6 +2,7 @@
 
 #include <vulkan/vulkan.h>
 #include <vulkan/vulkan_core.h>
+#include <vector>
 
 namespace mqvk
 {
@@ -46,6 +47,15 @@ namespace mqvk
 		Int32 transferFamilyIndex;
 	};
 
+	enum VkQueueType
+	{
+		kVkQueueGraphic = 0,
+		kVkQueuePresent,
+		kVkQueueCompute,
+		kVkQueueTransfer,
+		kVkQueueTypeCount
+	};
+
 	class VulkanDevice
 	{
 	public:
@@ -58,6 +68,9 @@ namespace mqvk
 		VkPhysicalDevice m_PhysicalDevice;
 		VkDevice m_LogicalDevice;
 		VulkanQueueFamilyIndex m_QueueFamilyIndex;
-		VulkanDeviceConfiguration m_Configuration;	
+		VulkanDeviceConfiguration m_Configuration;
+		darray<VkQueue> m_VkQueue;
+
+		const std::vector<const char*> m_Extension = { VK_KHR_SWAPCHAIN_EXTENSION_NAME };
 	};
 }
