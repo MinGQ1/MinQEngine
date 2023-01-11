@@ -63,6 +63,7 @@ namespace mqvk
 		VulkanDevice(VulkanDeviceConfiguration config);
 
 		void InitVulkanDevice();
+		VkPhysicalDevice GetPhysicalDevices() { return m_PhysicalDevice; }
 	private:
 		bool CheckPhysicalDeviceSutiable(VkPhysicalDevice device, bool updateConfig);
 		VkPhysicalDevice m_PhysicalDevice;
