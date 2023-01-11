@@ -52,6 +52,18 @@ public:
 		m_capacity = targetSize;
 	}
 
+	void resize(size_t targetSize)
+	{
+		if (targetSize == m_size || targetSize < 0)
+			return;
+		
+		if (targetSize > m_size)
+			reserve(targetSize);
+
+		if (targetSize < m_size)
+			// TODO: DELETE ELEMENT
+	}
+
 	iterator begin() { return m_array; }
 	iterator end() { return m_array + m_size; }
 
