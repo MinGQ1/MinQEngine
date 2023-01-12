@@ -3,6 +3,7 @@
 #include "MinQDefines.h"
 #include "Memory/MinQMemory.h"
 #include "Utilities/OOUtility.h"
+#include "Utilities/Containers/darray.h"
 
 template<typename T>
 struct darray

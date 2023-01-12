@@ -10,7 +10,7 @@ class VulkanRenderSystem : public RenderSystem
 public:
 	explicit VulkanRenderSystem(GLFWwindow* window)
 	{
-		m_GlfwWindow = window;
+		mqvk::g_VulkanContext.glfwWindow = window;
 	}
 	// TODO: remove this
 
@@ -22,6 +22,4 @@ private:
 	void SetupDebugMessenger();
 	void CreateVulkanDevice();
 	void CreateSwapChain();
-
-	GLFWwindow* m_GlfwWindow;
 };

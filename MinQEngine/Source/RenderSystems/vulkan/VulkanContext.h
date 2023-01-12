@@ -5,6 +5,8 @@
 #include "Utilities/Containers/darray.h"
 #include "MinQDefines.h"
 
+struct GLFWwindow;
+
 namespace mqvk
 {
 	class VulkanDevice;
@@ -16,6 +18,7 @@ namespace mqvk
 		darray<const char*> validationLayers;
 		VkDebugUtilsMessengerEXT debugMessenger;
 		VulkanDevice* vulkanDevice;
+		GLFWwindow* glfwWindow;
 	};
 	
 	extern VulkanContext g_VulkanContext;

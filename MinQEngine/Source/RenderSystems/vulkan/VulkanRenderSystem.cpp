@@ -102,7 +102,7 @@ void VulkanRenderSystem::CreateInstance(const char* appName)
 
 void VulkanRenderSystem::CreateSurface()
 {
-	CheckVkResult(glfwCreateWindowSurface(mqvk::g_VulkanContext.vkInstance, m_GlfwWindow, nullptr, &mqvk::g_VulkanContext.vkSurface));
+	CheckVkResult(glfwCreateWindowSurface(mqvk::g_VulkanContext.vkInstance, mqvk::g_VulkanContext.glfwWindow, nullptr, &mqvk::g_VulkanContext.vkSurface));
 }
 
 void VulkanRenderSystem::SetupDebugMessenger()
