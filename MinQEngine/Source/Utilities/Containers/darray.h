@@ -61,7 +61,9 @@ public:
 			reserve(targetSize);
 
 		if (targetSize < m_size)
-			// TODO: DELETE ELEMENT
+			destructor_explicit_range(m_array + targetSize, m_array + m_size);
+
+		m_size = targetSize;
 	}
 
 	iterator begin() { return m_array; }
