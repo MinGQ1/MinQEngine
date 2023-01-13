@@ -25,11 +25,15 @@ namespace mqvk
 
 	private:
 		void QuerySwapChainSupport();
+		void CreateImageViews();
 		VkSwapchainKHR m_SwapChain;
 		darray<VkSurfaceFormatKHR> m_SurfaceFormatSupport;
 		darray<VkPresentModeKHR> m_PresentModeSupport;
 		VkSurfaceCapabilitiesKHR m_SurfaceCapabilities;
 		VulkanSwapChainConfiguration m_Configuration;
 		VkExtent2D m_Extent;
+		darray<VkImage> m_Images;
+		darray<VkImageView> m_ImageViews;
+		VkFormat m_ImageFormat;
 	};
 }

@@ -49,7 +49,7 @@ namespace mqvk
 				result = true;
 				if (updateQueueIndex)
 				{
-					m_QueueFamilyIndex = familyIndices;
+					m_QueueFamilyIndices = familyIndices;
 				}
 				break;
 			}
@@ -91,10 +91,10 @@ namespace mqvk
 
 		darray<VkDeviceQueueCreateInfo> queueCreateInfos;
 		std::set<UInt32> queueFamiliesSet;
-		if (m_Configuration.graphicQueueRequire)	queueFamiliesSet.insert(m_QueueFamilyIndex.graphicsFamilyIndex);
-		if (m_Configuration.computeQueueRequire)	queueFamiliesSet.insert(m_QueueFamilyIndex.computeFamilyIndex);
-		if (m_Configuration.transferQueueRequire)	queueFamiliesSet.insert(m_QueueFamilyIndex.transferFamilyIndex);
-		if (m_Configuration.presentQueueRequire)	queueFamiliesSet.insert(m_QueueFamilyIndex.presentFamilyIndex);
+		if (m_Configuration.graphicQueueRequire)	queueFamiliesSet.insert(m_QueueFamilyIndices.graphicsFamilyIndex);
+		if (m_Configuration.computeQueueRequire)	queueFamiliesSet.insert(m_QueueFamilyIndices.computeFamilyIndex);
+		if (m_Configuration.transferQueueRequire)	queueFamiliesSet.insert(m_QueueFamilyIndices.transferFamilyIndex);
+		if (m_Configuration.presentQueueRequire)	queueFamiliesSet.insert(m_QueueFamilyIndices.presentFamilyIndex);
 
 		float queuePriority = 1.0f;
 		for (uint32_t queueFamily : queueFamiliesSet) {
@@ -130,9 +130,9 @@ namespace mqvk
 		CheckVkResult(vkCreateDevice(m_PhysicalDevice, &createInfo, nullptr, &m_LogicalDevice));
 
 		AssertMsg(m_VkQueue.size() == kVkQueueTypeCount, "VulkanDevice: Wrong size of vk queue");
-		vkGetDeviceQueue(m_LogicalDevice, m_QueueFamilyIndex.graphicsFamilyIndex, 0, &m_VkQueue[kVkQueueGraphic]);
-		vkGetDeviceQueue(m_LogicalDevice, m_QueueFamilyIndex.presentFamilyIndex, 0, &m_VkQueue[kVkQueuePresent]);
-		vkGetDeviceQueue(m_LogicalDevice, m_QueueFamilyIndex.transferFamilyIndex, 0, &m_VkQueue[kVkQueueTransfer]);
-		vkGetDeviceQueue(m_LogicalDevice, m_QueueFamilyIndex.computeFamilyIndex, 0, &m_VkQueue[kVkQueueCompute]);
+		vkGetDeviceQueue(m_LogicalDevice, m_QueueFamilyIndices.graphicsFamilyIndex, 0, &m_VkQueue[kVkQueueGraphic]);
+		vkGetDeviceQueue(m_LogicalDevice, m_QueueFamilyIndices.presentFamilyIndex, 0, &m_VkQueue[kVkQueuePresent]);
+		vkGetDeviceQueue(m_LogicalDevice, m_QueueFamilyIndices.transferFamilyIndex, 0, &m_VkQueue[kVkQueueTransfer]);
+		vkGetDeviceQueue(m_LogicalDevice, m_QueueFamilyIndices.computeFamilyIndex, 0, &m_VkQueue[kVkQueueCompute]);
 	}
 }

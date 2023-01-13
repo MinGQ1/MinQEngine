@@ -28,6 +28,32 @@ namespace mqvk
 		}
 	}
 
+	void VulkanSwapChain::CreateImageViews()
+	{
+		VkDevice logicDevice = g_VulkanContext.vulkanDevice->GetLogicalDevice();
+		m_ImageViews.resize(m_Images.size());
+
+		for (size_t i = 0; i < m_Images.size(); i++)
+		{
+			VkImageViewCreateInfo createInfo{};
+			createInfo.sType = VK_STRUCTURE_TYPE_IMAGE_VIEW_CREATE_INFO;
+			createInfo.image = m_Images[i];
+			createInfo.viewType = VK_IMAGE_VIEW_TYPE_2D;
+			createInfo.format = m_ImageFormat;
+			createInfo.components.r = VK_COMPONENT_SWIZZLE_IDENTITY;
+			createInfo.components.g = VK_COMPONENT_SWIZZLE_IDENTITY;
+			createInfo.components.b = VK_COMPONENT_SWIZZLE_IDENTITY;
+			createInfo.components.a = VK_COMPONENT_SWIZZLE_IDENTITY;
+			createInfo.subresourceRange.aspectMask = VK_IMAGE_ASPECT_COLOR_BIT;
+			createInfo.subresourceRange.baseMipLevel = 0;
+			createInfo.subresourceRange.levelCount = 1;
+			createInfo.subresourceRange.baseArrayLayer = 0;
+			createInfo.subresourceRange.layerCount = 1;
+
+			CheckVkResult(vkCreateImageView(logicDevice, &createInfo, nullptr, &m_ImageViews[i]), "Vulkan Swapchain£ºFailed to create image views!");
+		}
+	}
+
 	static void CheckSurface(darray<VkSurfaceFormatKHR>& availableFormats, VulkanSwapChainConfiguration& config)
 	{
 		bool surfaceFormatFind = false;
@@ -110,12 +136,14 @@ namespace mqvk
 		createInfo.imageArrayLayers = 1;
 		createInfo.imageUsage = VK_IMAGE_USAGE_COLOR_ATTACHMENT_BIT;
 
-		uint32_t queueFamilyIndices[] = { indices.graphicsFamily.value(), indices.presentFamily.value() };
+		VulkanDevice* vulkanDevice = g_VulkanContext.vulkanDevice;
+		const VulkanQueueFamilyIndices& queueFamilyIndices = vulkanDevice->GetQueueFamilyIndices();
+		uint32_t graphicAndPresentId[] = { queueFamilyIndices.graphicsFamilyIndex, queueFamilyIndices.presentFamilyIndex};
 
-		if (indices.graphicsFamily != indices.presentFamily) {
+		if (!queueFamilyIndices.GraphicPresentShareQueue()) {
 			createInfo.imageSharingMode = VK_SHARING_MODE_CONCURRENT;
 			createInfo.queueFamilyIndexCount = 2;
-			createInfo.pQueueFamilyIndices = queueFamilyIndices;
+			createInfo.pQueueFamilyIndices = graphicAndPresentId;
 		}
 		else {
 			createInfo.imageSharingMode = VK_SHARING_MODE_EXCLUSIVE;
@@ -123,21 +151,19 @@ namespace mqvk
 			createInfo.pQueueFamilyIndices = nullptr; // Optional
 		}
 
-		createInfo.preTransform = swapChainSupport.capabilities.currentTransform;
+		createInfo.preTransform = m_SurfaceCapabilities.currentTransform;
 		createInfo.compositeAlpha = VK_COMPOSITE_ALPHA_OPAQUE_BIT_KHR;
-		createInfo.presentMode = presentMode;
+		createInfo.presentMode = m_Configuration.presentMode;
 		createInfo.clipped = VK_TRUE;
 
 		createInfo.oldSwapchain = VK_NULL_HANDLE;
 
-		if (vkCreateSwapchainKHR(m_Device, &createInfo, nullptr, &m_SwapChain) != VK_SUCCESS) {
-			throw std::runtime_error("failed to create swap chain!");
-		}
+		CheckVkResult(vkCreateSwapchainKHR(vulkanDevice->GetLogicalDevice(), &createInfo, nullptr, &m_SwapChain));
 
-		vkGetSwapchainImagesKHR(m_Device, m_SwapChain, &imageCount, nullptr);
-		m_SwapChainImages.resize(imageCount);
-		vkGetSwapchainImagesKHR(m_Device, m_SwapChain, &imageCount, m_SwapChainImages.data());
-		m_SwapChainImageFormat = surfaceFormat.format;
-		m_SwapChainExtent = extent;
+
+		vkGetSwapchainImagesKHR(vulkanDevice->GetLogicalDevice(), m_SwapChain, &imageCount, nullptr);
+		m_Images.resize(imageCount);
+		vkGetSwapchainImagesKHR(vulkanDevice->GetLogicalDevice(), m_SwapChain, &imageCount, m_Images.data());
+		m_ImageFormat = m_Configuration.surfaceFormat.format;
 	}
 }

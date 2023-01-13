@@ -32,15 +32,16 @@ namespace mqvk
 		}
 	};
 
-	struct VulkanQueueFamilyIndex
+	struct VulkanQueueFamilyIndices
 	{
-		VulkanQueueFamilyIndex()
+		VulkanQueueFamilyIndices()
 		{
 			graphicsFamilyIndex = -1;
 			presentFamilyIndex = -1;
 			computeFamilyIndex = -1;
 			transferFamilyIndex = -1;
 		}
+		bool GraphicPresentShareQueue() const { return graphicsFamilyIndex == presentFamilyIndex; }
 		Int32 graphicsFamilyIndex;
 		Int32 presentFamilyIndex;
 		Int32 computeFamilyIndex;
@@ -63,12 +64,15 @@ namespace mqvk
 		VulkanDevice(VulkanDeviceConfiguration config);
 
 		void InitVulkanDevice();
+		// vk device is actually a pointer type
 		VkPhysicalDevice GetPhysicalDevices() { return m_PhysicalDevice; }
+		VkDevice GetLogicalDevice() { return m_LogicalDevice;};
+		const VulkanQueueFamilyIndices& GetQueueFamilyIndices() const { return m_QueueFamilyIndices; }
 	private:
 		bool CheckPhysicalDeviceSutiable(VkPhysicalDevice device, bool updateConfig);
 		VkPhysicalDevice m_PhysicalDevice;
 		VkDevice m_LogicalDevice;
-		VulkanQueueFamilyIndex m_QueueFamilyIndex;
+		VulkanQueueFamilyIndices m_QueueFamilyIndices;
 		VulkanDeviceConfiguration m_Configuration;
 		darray<VkQueue> m_VkQueue;
 

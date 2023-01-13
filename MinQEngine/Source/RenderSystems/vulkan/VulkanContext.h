@@ -10,6 +10,7 @@ struct GLFWwindow;
 namespace mqvk
 {
 	class VulkanDevice;
+	class VulkanSwapChain;
 
 	struct VulkanContext
 	{
@@ -18,6 +19,7 @@ namespace mqvk
 		darray<const char*> validationLayers;
 		VkDebugUtilsMessengerEXT debugMessenger;
 		VulkanDevice* vulkanDevice;
+		VulkanSwapChain* SwapChain;
 		GLFWwindow* glfwWindow;
 	};
 	
