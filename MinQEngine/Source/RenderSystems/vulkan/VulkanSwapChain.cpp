@@ -160,10 +160,11 @@ namespace mqvk
 
 		CheckVkResult(vkCreateSwapchainKHR(vulkanDevice->GetLogicalDevice(), &createInfo, nullptr, &m_SwapChain));
 
-
 		vkGetSwapchainImagesKHR(vulkanDevice->GetLogicalDevice(), m_SwapChain, &imageCount, nullptr);
 		m_Images.resize(imageCount);
 		vkGetSwapchainImagesKHR(vulkanDevice->GetLogicalDevice(), m_SwapChain, &imageCount, m_Images.data());
 		m_ImageFormat = m_Configuration.surfaceFormat.format;
+
+		CreateImageViews();
 	}
 }

@@ -59,6 +59,7 @@ void VulkanRenderSystem::Initialize()
 	CreateSurface();
 	SetupDebugMessenger();
 	CreateVulkanDevice();
+	CreateSwapChain();
 }
 
 void VulkanRenderSystem::CreateInstance(const char* appName)
