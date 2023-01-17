@@ -20,7 +20,7 @@ namespace mqvk
 		darray<VkQueueFamilyProperties> queueFamilies(queueFamilyCount);
 		vkGetPhysicalDeviceQueueFamilyProperties(device, &queueFamilyCount, queueFamilies.data());
 
-		VulkanQueueFamilyIndex	familyIndices;
+		VulkanQueueFamilyIndices familyIndices;
 		VulkanDeviceConfiguration configuration;
 		int id = 0;
 		for (darray<VkQueueFamilyProperties>::iterator it = queueFamilies.begin(); it != queueFamilies.end(); it++)
