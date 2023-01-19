@@ -1,6 +1,7 @@
 #pragma once
 #include <vulkan/vulkan.h>
 #include <vulkan/vulkan_core.h>
+#include <map>
 
 namespace mqvk
 {
@@ -12,10 +13,12 @@ namespace mqvk
 		};
 	};
 
-	struct VulkanRenderPass
+	class VulkanRenderPassCache
 	{
-		VulkanRenderPassDesc desc;
-		VkRenderPass realRenderPass;
+	public:
+		VkRenderPass GetRenderPass(const VulkanRenderPassDesc& passDesc);
+	private:
+		std::map<VulkanRenderPassDesc, VkRenderPass, VulkanRenderPassDesc::Compare> m_RenderPassCache;
 	};
 
 
